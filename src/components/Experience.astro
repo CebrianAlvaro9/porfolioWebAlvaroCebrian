@@ -1,0 +1,30 @@
+---
+import ExperienceItem from "./ExperienceItem.astro"
+const EXPERIENCIE = [
+  {
+    date: "Actualmente...",
+    title: "Junior Delivery Analyst",
+    company: "Deloitte",
+    description:
+      "Desarrollando una aplicación web para el ayuntamiento de una destacada ciudad en los Países Bajos, enfocado en el desarrollo frontend. 💼💻🏛️",
+    link: "https://www2.deloitte.com/es/es.html",
+  },
+  {
+    date: "Marzo 2023",
+    title: "Frontend Developer",
+    company: "CrossControl Oy Fi",
+    description:
+      "Encargado del desarrollo de una aplicación web para el monitoreo de cámaras de seguridad con detección de personas mediante inteligencia artificial React.js. En Tampere, Finlandia, para una empresa especializada en la distribución de pantallas para vehículos industriales.👁️‍🗨️🚚",
+  },
+]
+---
+
+<ol class="relative mt-16">
+  {
+    EXPERIENCIE.map((experiencie) => (
+      <li class="">
+        <ExperienceItem {...experiencie} />
+      </li>
+    ))
+  }
+</ol>

@@ -1,0 +1,33 @@
+---
+const personalImageAlt = "Alvaro Cebrian";
+---
+
+<article
+  class="flex flex-col items-center justify-center gap-8 text-gray-700 dark:text-gray-300 md:flex-row"
+>
+  <div
+    class="[&>p]:mb-4 [&>p>strong]:text-emerald-500 dark:[&>p>strong]:text-emerald-100 [&>p>strong]:font-normal [&>p>strong]:font-mono text-pretty order-2 md:order-1"
+  >
+    <p>
+      Soy Álvaro Cebrián Urueña, un joven desarrollador front-end que inició su
+      carrera hace poco más de un año. <strong>Mi experiencia laboral incluye periodos
+        en Finlandia y España durante el último año. </strong> Lo que me ha brindado una gran capacidad de adaptación por lo que.. <strong>En el mundo web, tengo la
+        versatilidad para trabajar tanto con Angular como con React</strong>
+    </p>
+    <p>
+      He encontrado mi pasión en el desarrollo web,
+      explorando diversas tecnologías.<strong>A nivel personal, soy un apasionado del
+        deporte, dedicando varios años al entrenamiento de powerlifting.</strong>  Además,
+      disfruto de escapadas para practicar surf o snowboard siempre que puedo.
+    </p>
+  </div>
+
+  <img
+    width="200"
+    height="200"
+    src="personalImage.jpg"
+    alt={personalImageAlt}
+    class="order-1 object-cover w-64 h-full p-1 md:order-2 rotate-3 lg:p-2 lg:w-64 aspect-square rounded-2xl bg-black/20 dark:bg-emerald-500/5 ring-1 ring-black/70 dark:ring-white/20"
+    style="object-position: 50% 50%"
+  />
+</article>
