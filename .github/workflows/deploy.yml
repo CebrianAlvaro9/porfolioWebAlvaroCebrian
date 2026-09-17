@@ -19,15 +19,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout your repository using git
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Install, build, and upload your site
-        uses: withastro/action@v2
+        uses: withastro/action@v6
         with:
-          package-manager: pnpm@latest
-          node-version: 22
-        # con:
-          # path: . # La ubicación raíz de tu proyecto de Astro dentro del repositorio. (opcional).
-          # package-manager: pnpm@latest # El gestor de paquetes de Node que debería usarse para instalar dependencias y construir tu sitio. Detectado automáticamente basado en tu lockfile. (opcional)
+          package-manager: pnpm@12.4.2
+          node-version: 24
 
   deploy:
     needs: build
@@ -38,4 +35,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5

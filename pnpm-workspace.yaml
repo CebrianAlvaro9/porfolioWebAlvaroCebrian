@@ -1,0 +1,4 @@
+# pnpm 10+ requires explicit approval for dependency install scripts.
+# Astro needs esbuild's native binary during the build.
+allowBuilds:
+  esbuild: true
