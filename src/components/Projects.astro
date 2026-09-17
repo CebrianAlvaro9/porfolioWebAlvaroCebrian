@@ -8,41 +8,56 @@ import PrimeFlex from "./icons/PrimeFlex.astro"
 import Rxjs from "./icons/Rxjs.astro"
 import ReactJS from "./icons/ReactJS.astro"
 import Redux from "./icons/Redux.astro"
+import CodeIcon from "./icons/Code.astro"
 
 const TAGS = {
   ANGULAR: {
     name: "Angular 17",
-    class: "bg-black text-white",
+    class: "project-tag--technology",
     icon: Angular,
   },
   TAILWIND: {
     name: "Tailwind CSS",
-    class: "bg-[#003159] text-white",
+    class: "project-tag--technology",
     icon: Tailwind,
-  }
-  ,
+  },
   PRIMEFLEX: {
     name: "PrimeFlex",
-    class: "bg-[#003159] text-white",
+    class: "project-tag--technology",
     icon: PrimeFlex,
   },
   RXJS: {
     name: "RxJS",
-    class: "bg-[#003159] text-white",
+    class: "project-tag--technology",
     icon: Rxjs,
   },
   REACT: {
     name: "React.js",
-    class: "bg-[#003159] text-white",
+    class: "project-tag--technology",
     icon: ReactJS,
   },
   REDUX: {
     name: "Redux",
-    class: "bg-[#003159] text-white",
+    class: "project-tag--technology",
     icon: Redux,
+  },
+  TYPESCRIPT: {
+    name: "TypeScript",
+    class: "project-tag--technology",
+    icon: CodeIcon,
   },
 }
 const PROJECTS = [
+  {
+    title: "FUEL APP",
+    description:
+      "SPA desarrollada con React y TypeScript para consultar los precios de las gasolineras en España y encontrar las opciones más baratas según tu ubicación. Consume la API oficial del Ministerio, permite filtrar por combustible y zona, calcula distancias y utiliza virtualización para manejar grandes volúmenes de estaciones. ⛽📍",
+    link: "https://cebrianalvaro9.github.io/fuel-app/",
+    github: "https://github.com/CebrianAlvaro9/fuel-app",
+    image: "/porfolioWebAlvaroCebrian/projects/fuelApp.png",
+    featured: true,
+    tags: [TAGS.REACT, TAGS.TYPESCRIPT, TAGS.TAILWIND],
+  },
   {
     title: "POKEDEX-APP",
     description:
@@ -64,18 +79,22 @@ const PROJECTS = [
 ]
 ---
 
-<div class="flex flex-col gap-y-16">
+<div class="projects-list flex flex-col gap-y-16">
   {
-    PROJECTS.map(({ image, title, description, tags, link, github }) => (
-    <article class="flex flex-col space-x-0 space-y-8 group md:flex-row md:space-x-8 md:space-y-0">
+    PROJECTS.map(({ image, title, description, tags, link, github, featured }) => (
+    <article
+      class={`project-card flex flex-col space-x-0 space-y-8 group md:flex-row md:space-x-8 md:space-y-0 ${featured ? "project-card--fuel" : ""}`}
+      data-reveal
+      data-card-tilt
+    >
   <div class="w-full md:w-1/2">
-    <div class="relative flex flex-col items-center col-span-6 row-span-5 gap-8 transition duration-500 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl md:group-hover:-translate-y-1 md:group-hover:shadow-2xl lg:border lg:border-gray-800 lg:hover:border-gray-700 lg:hover:bg-gray-800/50">
-      <img alt="Recién llegado vs 5 años en Nueva Zelanda" class="object-cover object-top w-full h-56 transition duration-500 sm:h-full md:scale-110 md:group-hover:scale-105" loading="lazy" src={image} />
+            <div class="project-media relative overflow-clip">
+      <img alt={title} class="project-image" loading={title === "FUEL APP" ? "eager" : "lazy"} src={image} />
     </div>
   </div>
 
   <div class="w-full md:w-1/2 md:max-w-lg">
-    <h3 class="text-2xl font-bold text-gray-800 dark:text-gray-100">
+    <h3 class="project-title text-2xl font-bold text-gray-800 dark:text-gray-100">
       {title}
     </h3>
     <div class="flex flex-wrap mt-2">
@@ -83,7 +102,7 @@ const PROJECTS = [
           {tags.map((tag) => (
             <li>
               <span
-                class={`flex gap-x-2 rounded-full text-xs ${tag.class} py-1 px-2 `}
+                class={`project-tag flex gap-x-2 rounded-full text-xs ${tag.class} py-1 px-2`}
               >
                 <tag.icon class="size-4" />
                 {tag.name}
@@ -92,8 +111,8 @@ const PROJECTS = [
           ))}
         </ul>
 
-      <div class="mt-2 text-gray-700 dark:text-gray-400">{description}</div>
-      <footer class="flex items-end justify-start mt-4 gap-x-4">
+      <div class="project-description mt-2 text-gray-700 dark:text-gray-400">{description}</div>
+      <footer class="project-actions flex items-end justify-start mt-4 gap-x-4">
           {github && (
             <LinkButton href={github}>
               <GitHub class="size-6" />
@@ -114,6 +133,3 @@ const PROJECTS = [
     ))
   }
 </div>
-
-
-

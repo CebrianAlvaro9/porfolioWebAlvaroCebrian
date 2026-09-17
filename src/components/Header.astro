@@ -21,15 +21,15 @@ const navItems = [
 ---
 
 <header
-  class="fixed top-0 z-10 flex items-center justify-center w-full mx-auto mt-2"
+  class="site-header fixed top-0 z-10 flex items-center justify-center w-full mx-auto mt-2"
 >
   <nav
-    class="flex px-3 text-sm font-medium rounded-full text-gray-600  dark:text-gray-200 justify-center items-center"
+    class="site-nav flex px-3 text-sm font-medium rounded-full justify-center items-center"
   >
     {
       navItems.map((link) => (
         <a
-          class="relative block px-2 py-2 transition hover:text-emerald-500 dark:hover:text-emerald-400"
+          class="site-nav__link relative block px-2 py-2 transition hover:text-emerald-500 dark:hover:text-emerald-400"
           aria-label={link.label}
           href={link.url}
         >
@@ -82,17 +82,3 @@ const navItems = [
     }
   })
 </script>
-
-<style>
-  nav {
-    animation: nav-shadown 1s linear both;
-    animation-timeline: scroll();
-    animation-range: 0 100px;
-  }
-
-  @keyframes nav-shadown {
-    to {
-      @apply shadow-lg ring-1 backdrop-blur dark:bg-gray-800/90 bg-white/30 ring-white/10;
-    }
-  }
-</style>

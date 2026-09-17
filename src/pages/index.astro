@@ -15,16 +15,18 @@ import Hero from "@/components/Hero.astro"
   title="Porfolio Alvaro Cebrian"
   description=""
 >
-  <main class="px-4">
-    <SectionContainer class="py-16 md:py-36">
-      <Hero>
-      </slot>
-    </Hero>
+  <main class="portfolio-main px-4">
+    <SectionContainer
+      class="hero-section py-16 md:py-36"
+      data-scroll-hero
+      data-reveal
+    >
+      <Hero />
     </SectionContainer>
-    <div class="space-y-24">
-    <SectionContainer id="experiencia">
+    <div class="sections-stack space-y-24">
+    <SectionContainer id="experiencia" data-reveal>
       <h2
-        class="flex items-center mb-6 text-3xl font-semibold gap-x-3 text-black/80 dark:text-white"
+        class="section-heading flex items-center mb-6 gap-x-3"
       >
         <Briefcase class="size-8" />
         Experiencia laboral
@@ -32,9 +34,9 @@ import Hero from "@/components/Hero.astro"
       <Experience />
     </SectionContainer>
 
-    <SectionContainer id="proyectos">
+    <SectionContainer id="proyectos" data-reveal>
       <h2
-        class="flex items-center mb-6 text-3xl font-semibold gap-x-3 text-black/80 dark:text-white"
+        class="section-heading flex items-center mb-6 gap-x-3"
       >
         <CodeIcon class="size-7" />
         Proyectos
@@ -42,9 +44,9 @@ import Hero from "@/components/Hero.astro"
       <Projects />
     </SectionContainer>
 
-    <SectionContainer id="sobre-mi">
+    <SectionContainer id="sobre-mi" data-reveal>
       <h2
-        class="flex items-center mb-6 text-3xl font-semibold gap-x-8 text-black/80 dark:text-white"
+        class="section-heading flex items-center mb-6 gap-x-8"
       >
         <ProfileCheck class="size-8" />
         Sobre mí

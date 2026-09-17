@@ -6,42 +6,51 @@ import MailIcon from "@/components/icons/Mail.astro"
 import SocialPill from "@/components/SocialPill.astro"
 ---
 
-<div class="max-w-xl">
-  <div class="flex gap-4 mb-4">
-    <img
-      class="rounded-full shadow-lg size-16"
-      src="/porfolioWebAlvaroCebrian/personalImage.jpg"
-      alt={personalImageAlt}
-    />
-    <a
-      href="https://www.linkedin.com/in/alvaro-cebrian-urue%C3%B1a-810249265/"
-      target="_blank"
-      rel="noopener"
-      class="flex items-center transition md:justify-center md:hover:scale-105"
-    >
-      <Badge>Disponible</Badge>
-    </a>
+<div class="hero-layout">
+  <div class="hero-copy">
+    <div class="hero-intro">
+      <span class="hero-avatar">
+        <img
+          src="/porfolioWebAlvaroCebrian/avatar.png"
+          alt={personalImageAlt}
+        />
+      </span>
+      <a
+        href="https://www.linkedin.com/in/alvaro-cebrian-urue%C3%B1a-810249265/"
+        target="_blank"
+        rel="noopener"
+        class="hero-status"
+      >
+        <Badge>Disponible</Badge>
+      </a>
+    </div>
+    <p class="hero-overline">SOFTWARE ENGINEER <span>/</span> FRONTEND</p>
+    <h1>Hey, soy <span>Alvaro!</span></h1>
+    <p class="hero-description">
+      Ingeniero de software con más de 3 años de experiencia. <strong
+        >Frontend developer</strong
+      > de Zaragoza, España 🇪🇸, especializado en crear interfaces escalables y experiencias web modernas con Angular y React.
+    </p>
+    <nav class="hero-actions" aria-label="Contacto y redes sociales">
+      <SocialPill href="mailto:cebrianalvaro9@gmail.com">
+        <MailIcon class="size-4" />
+        Contáctame
+      </SocialPill>
+      <SocialPill href="https://www.linkedin.com/in/alvaro-cebrian-urue%C3%B1a-810249265/">
+        <LinkedInIcon class="size-4" />
+        LinkedIn
+      </SocialPill>
+    </nav>
   </div>
-  <h1
-    class="text-4xl font-bold tracking-tight text-gray-800 sm:text-5xl dark:text-white"
-  >
-    Hey, soy Alvaro!
-  </h1>
-  <p
-    class="mt-6 text-xl text-gray-800 dark:[&>strong]:text-emerald-300 [&>strong]:text-emerald-600 [&>strong]:font-semibold dark:text-gray-300"
-  >
-    +2 años de experiencia. <strong
-      >Frontend developer</strong
-    > de Zaragoza, España 🇪🇸. Explorador especializado en el universo de las páginas web 🌍🚀.
-  </p>
-  <nav class="flex flex-wrap gap-4 mt-8">
-    <SocialPill href="mailto:cebrianalvaro9@gmail.com">
-      <MailIcon class="size-4" />
-      Contáctame
-    </SocialPill>
-    <SocialPill href="https://www.linkedin.com/in/alvaro-cebrian-urue%C3%B1a-810249265/">
-      <LinkedInIcon class="size-4" />
-      LinkedIn
-    </SocialPill>
-  </nav>
+
+  <div class="hero-showcase" aria-hidden="true">
+    <div class="hero-showcase__halo"></div>
+    <div class="hero-showcase__ring hero-showcase__ring--one"></div>
+    <div class="hero-showcase__ring hero-showcase__ring--two"></div>
+    <div class="hero-showcase__card">
+      <img src="/porfolioWebAlvaroCebrian/avatar.png" alt="" />
+      <span>SCROLL TO EXPLORE</span>
+    </div>
+    <span class="hero-showcase__index">01 / 04</span>
+  </div>
 </div>

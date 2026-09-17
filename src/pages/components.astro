@@ -11,15 +11,16 @@ import Layout from "@/layouts/Layout.astro"
   title="Design System porfolio.dev"
   description="El catálogo de componentes de nuestro porfolio"
 >
-  <SectionContainer class="py-44 pb-32 flex flex-col gap-y-10">
-    <article class="mb-10">
-      <h1 class="mb-4 text-xl font-semibold">&lt;Badge /&gt;</h1>
+  <main class="components-page px-4">
+  <SectionContainer class="components-showcase py-44 pb-32 flex flex-col gap-y-10" data-reveal>
+    <article class="component-card mb-10" data-reveal>
+      <h1 class="component-title mb-4 text-xl font-semibold">&lt;Badge /&gt;</h1>
 
       <Badge>Disponible</Badge>
     </article>
 
-    <article class="mb-10">
-      <h1 class="mb-4 text-xl font-semibold">&lt SocialPill /&gt;</h1>
+    <article class="component-card mb-10" data-reveal>
+      <h1 class="component-title mb-4 text-xl font-semibold">&lt SocialPill /&gt;</h1>
 
       <div class="flex">
         <SocialPill href="https://linkedin.com/in/midudev">
@@ -29,4 +30,5 @@ import Layout from "@/layouts/Layout.astro"
       </div>
     </article>
   </SectionContainer>
+  </main>
 </Layout>

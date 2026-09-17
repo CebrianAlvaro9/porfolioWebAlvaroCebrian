@@ -1,0 +1,164 @@
+<div class="snow-cursor" data-snow-cursor aria-hidden="true">
+  <span class="snow-cursor__halo"></span>
+  <span class="snow-cursor__core"></span>
+  <span class="snow-cursor__flake snow-cursor__flake--one"></span>
+  <span class="snow-cursor__flake snow-cursor__flake--two"></span>
+</div>
+
+<script>
+  let cleanup: () => void = () => {}
+
+  const clamp = (value: number, min: number, max: number) =>
+    Math.min(Math.max(value, min), max)
+
+  const initEffects = () => {
+    cleanup()
+    document.documentElement.classList.add("effects-ready")
+
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    )
+    const hasFinePointer = window.matchMedia(
+      "(hover: hover) and (pointer: fine)",
+    )
+    const revealElements = [...document.querySelectorAll<HTMLElement>("[data-reveal]")]
+    const hero = document.querySelector<HTMLElement>("[data-scroll-hero]")
+    const cursor = document.querySelector<HTMLElement>("[data-snow-cursor]")
+    const tiltCards = [...document.querySelectorAll<HTMLElement>("[data-card-tilt]")]
+    const teardown: Array<() => void> = []
+    let scrollFrame: number | null = null
+    let pointerFrame: number | null = null
+    let targetX = -80
+    let targetY = -80
+    let currentX = targetX
+    let currentY = targetY
+
+    const addListener = (
+      target: EventTarget,
+      event: string,
+      listener: EventListener,
+      options?: AddEventListenerOptions,
+    ) => {
+      target.addEventListener(event, listener, options)
+      teardown.push(() => target.removeEventListener(event, listener, options))
+    }
+
+    if (prefersReducedMotion.matches) {
+      revealElements.forEach((element) => element.classList.add("is-visible"))
+    } else if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible")
+              observer.unobserve(entry.target)
+            }
+          })
+        },
+        { rootMargin: "0px 0px -10%", threshold: 0.08 },
+      )
+
+      revealElements.forEach((element) => observer.observe(element))
+      teardown.push(() => observer.disconnect())
+    } else {
+      revealElements.forEach((element) => element.classList.add("is-visible"))
+    }
+
+    const updateScrollProgress = () => {
+      scrollFrame = null
+
+      if (!hero || prefersReducedMotion.matches) return
+
+      const bounds = hero.getBoundingClientRect()
+      const travel = Math.max(1, bounds.height - window.innerHeight * 0.68)
+      const progress = clamp(-bounds.top / travel, 0, 1)
+      hero.style.setProperty("--hero-progress", progress.toFixed(3))
+    }
+
+    const onScroll = () => {
+      if (scrollFrame === null) scrollFrame = requestAnimationFrame(updateScrollProgress)
+    }
+
+    addListener(window, "scroll", onScroll, { passive: true })
+    addListener(window, "resize", onScroll, { passive: true })
+    updateScrollProgress()
+
+    if (cursor && hasFinePointer.matches && !prefersReducedMotion.matches) {
+      const renderCursor = () => {
+        currentX += (targetX - currentX) * 0.18
+        currentY += (targetY - currentY) * 0.18
+        cursor.style.setProperty("--cursor-x", `${currentX}px`)
+        cursor.style.setProperty("--cursor-y", `${currentY}px`)
+
+        if (Math.abs(targetX - currentX) > 0.1 || Math.abs(targetY - currentY) > 0.1) {
+          pointerFrame = requestAnimationFrame(renderCursor)
+        } else {
+          pointerFrame = null
+        }
+      }
+
+      const onPointerMove = (event: Event) => {
+        const pointerEvent = event as PointerEvent
+        targetX = pointerEvent.clientX
+        targetY = pointerEvent.clientY
+        cursor.classList.add("is-visible")
+
+        if (pointerFrame === null) pointerFrame = requestAnimationFrame(renderCursor)
+      }
+
+      const onPointerLeave = () => cursor.classList.remove("is-visible")
+
+      addListener(window, "pointermove", onPointerMove, { passive: true })
+      addListener(document.documentElement, "pointerleave", onPointerLeave, {
+        passive: true,
+      })
+      teardown.push(() => {
+        if (pointerFrame !== null) cancelAnimationFrame(pointerFrame)
+      })
+    }
+
+    if (hasFinePointer.matches && !prefersReducedMotion.matches) {
+      tiltCards.forEach((card) => {
+        const onMove = (event: Event) => {
+          const pointerEvent = event as PointerEvent
+          const bounds = card.getBoundingClientRect()
+          const x = (pointerEvent.clientX - bounds.left) / bounds.width
+          const y = (pointerEvent.clientY - bounds.top) / bounds.height
+          const rotateY = (x - 0.5) * 7
+          const rotateX = (0.5 - y) * 7
+
+          card.style.setProperty("--card-rotate-x", `${rotateX.toFixed(2)}deg`)
+          card.style.setProperty("--card-rotate-y", `${rotateY.toFixed(2)}deg`)
+          card.classList.add("is-tilting")
+        }
+
+        const onLeave = () => {
+          card.classList.remove("is-tilting")
+          card.style.setProperty("--card-rotate-x", "0deg")
+          card.style.setProperty("--card-rotate-y", "0deg")
+        }
+
+        addListener(card, "pointermove", onMove, { passive: true })
+        addListener(card, "pointerleave", onLeave, { passive: true })
+      })
+    }
+
+    teardown.push(() => {
+      if (scrollFrame !== null) cancelAnimationFrame(scrollFrame)
+      revealElements.forEach((element) => element.classList.remove("is-visible"))
+    })
+
+    cleanup = () => {
+      document.documentElement.classList.remove("effects-ready")
+      teardown.splice(0).forEach((remove) => remove())
+    }
+  }
+
+  document.addEventListener("astro:page-load", initEffects)
+  document.addEventListener("DOMContentLoaded", initEffects, { once: true })
+  document.addEventListener("astro:before-swap", () => cleanup())
+
+  if (document.readyState !== "loading") {
+    initEffects()
+  }
+</script>
