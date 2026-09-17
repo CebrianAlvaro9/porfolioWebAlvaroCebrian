@@ -2,3 +2,8 @@
 # Astro needs esbuild's native binary during the build.
 allowBuilds:
   esbuild: true
+
+# Astro is intentionally pinned in package.json and was published recently.
+# Keep pnpm's release-age protection for every other dependency.
+minimumReleaseAgeExclude:
+  - astro@7.3.3

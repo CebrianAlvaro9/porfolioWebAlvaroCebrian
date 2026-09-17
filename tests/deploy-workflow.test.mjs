@@ -19,4 +19,5 @@ test("pnpm explicitly allows the build script required by Astro", async () => {
   const workspaceConfig = await readFile(workspaceConfigPath, "utf8");
 
   assert.match(workspaceConfig, /allowBuilds:\s*\n\s+esbuild:\s*true/);
+  assert.match(workspaceConfig, /minimumReleaseAgeExclude:\s*\n\s+-\s+astro@7\.3\.3/);
 });
